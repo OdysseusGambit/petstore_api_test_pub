@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  petstore:
+    image: swaggerapi/petstore:latest
+    ports:
+      - "8080:8080"
+
+  test-runner:
+    build: .
+    depends_on:
+      - petstore
+    environment:
+      BASE_URL: http://petstore:8080/v2
+      API_KEY: test_api_key
+    volumes:
+      - ./reports:/app/reports
